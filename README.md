@@ -15,8 +15,8 @@ My email setup, now under source control as it is getting rather complex!
    I then use to update my modeline display etc. (See [my Emacs config][5].)
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
-5. Outgoing emails are sent using [msmtp][8] and the msmtpq script, back out
-   via FastMail's servers.
+5. Outgoing emails are sent using [msmtp][8] and the [msmtpq][9] script, back
+   out via FastMail's servers.
 
 
 ## Usage
@@ -25,12 +25,12 @@ _(Not actually supposed to be used by other people...)_
 
 - Set up [my Emacs config][5].
 - Create `password.gpg` with the FastMail password.
-- Run `./sync` to receive new email.
+- Run `./syncmail` to receive new email.
 
 
 ## TODO
 
-- Set up [impanotify][9] to trigger mbsync when new incoming emails are
+- Set up [imapnotify][11] to trigger mbsync when new incoming emails are
   received. (Beats polling every 60 seconds.)
 - Fix up Rietveld emails:
  - Quoted text is often wrapped too eagerly.

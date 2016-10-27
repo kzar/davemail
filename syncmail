@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while [ TRUE ];do
+    if [ `nmcli networking connectivity` = 'full' ]
+    then
+        python presync.py && mbsync kzar && notmuch new && ./postsync.sh
+    fi
+    sleep 120
+done
