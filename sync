@@ -1,2 +1,2 @@
 #!/bin/bash
-python presync.py && mbsync kzar && notmuch new && python postsync.py
+python presync.py && mbsync kzar && notmuch new && ./postsync.sh
