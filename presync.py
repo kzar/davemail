@@ -3,7 +3,9 @@ from subprocess import call
 
 import notmuch
 
-call(["emacsclient", "-e", "(run-hooks 'notmuch-presync-hook)"])
+with open(os.devnull, "w") as devnull:
+  call(["emacsclient", "-e", "(run-hooks 'notmuch-presync-hook)"],
+       stdout=devnull)
 
 db = notmuch.Database()
 maildir_path = os.path.realpath(os.path.expanduser("~/Maildir"))
