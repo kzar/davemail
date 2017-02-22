@@ -25,16 +25,18 @@ _(Not actually supposed to be used by other people...)_
 
 - Set up [my Emacs config][5].
 - Create `password.gpg` with the FastMail password.
-- Run `./syncmail` to receive new email.
 
+- Run `./syncmail` to do a complete mail synchronisation every two minutes.
+- Run `./syncmail 1` to fetch incoming emails every 30 seconds.
 
 ## TODO
 
 - Set up [imapnotify][11] to trigger mbsync when new incoming emails are
-  received. (Beats polling every 60 seconds.)
+  received. (Beats polling.)
 - Fix up Rietveld emails:
  - Quoted text is often wrapped too eagerly.
  - No thread ID is given so messages aren't kept together.
+- Ditch webmail / mobile email completely?!
 
 
 [1]: https://fastmail.com

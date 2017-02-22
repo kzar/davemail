@@ -30,3 +30,10 @@ Expunge Both
 # Save the synchronization state files in the relevant directory
 SyncState *
 Sync All
+
+Channel kzar-quick
+Master :kzar-remote:
+Slave :kzar-local:
+Patterns INBOX INBOX/*
+SyncState *
+Sync Pull New
