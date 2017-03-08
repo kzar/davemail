@@ -34,6 +34,6 @@ Sync All
 Channel kzar-quick
 Master :kzar-remote:
 Slave :kzar-local:
-Patterns INBOX INBOX/*
+Patterns INBOX
 SyncState *
 Sync Pull New

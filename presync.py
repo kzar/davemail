@@ -19,11 +19,8 @@ def move_messages(query_string, destination):
     new_filename = os.path.join(maildir_path, destination, cur_new, filename)
     os.rename(old_filename, new_filename)
 
-# Archive any messages under INBOX*/ which no longer have the inbox tag
-inbox_folders = " OR ".join(["folder:" + path
-                             for path in os.listdir(maildir_path)
-                             if path.startswith("INBOX")])
-move_messages("NOT tag:inbox AND (" + inbox_folders + ")", "Archive")
+# Archive any messages in INBOX which no longer have the inbox tag
+move_messages("NOT tag:inbox AND folder:INBOX", "Archive")
 
 # Move any junk to the Spam / Trash folders
 move_messages("tag:spam AND NOT folder:Spam", "Spam")
