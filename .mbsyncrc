@@ -21,8 +21,8 @@ Flatten .
 Channel kzar
 Master :kzar-remote:
 Slave :kzar-local:
-# Don't sync drafts since they are stored unencrypted
-Patterns * !Drafts
+# I only need to keep a few folders in sync
+Patterns INBOX Travel Archive Sent Spam
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
 # Really delete messages!
