@@ -10,9 +10,6 @@ IMAPStore kzar-remote
 Account kzar
 
 MaildirStore kzar-local
-# Important if you *ever* move emails from one folder to another without
-# renaming them, for example using webmail!
-AltMap yes
 # The trailing "/" is important
 Path ~/Maildir/
 Inbox ~/Maildir/INBOX

@@ -49,7 +49,7 @@ other_email=dave@adblockplus.org;d.barker@eyeo.com;dave@inadub.co.uk;kzar@kzar.d
 #
 [new]
 tags=inbox
-ignore=.mbsyncstate;.isyncuidmap.db
+ignore=.mbsyncstate;.isyncuidmap.db;.uidvalidity
 
 # Search configuration
 #

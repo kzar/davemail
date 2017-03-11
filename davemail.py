@@ -3,6 +3,7 @@ from subprocess import call
 import time
 import uuid
 from ConfigParser import SafeConfigParser
+import re
 
 import notmuch
 
@@ -13,18 +14,22 @@ default_folder = config.get("general", "default_folder")
 tag_folder_mapping = config.items("tag_folder_mapping")
 
 def new_name(old_name):
-  # Most of my email files are named like suggested here[1]. For those we can
-  # replace the timestamp part with the current time.
-  # [1] - http://cr.yp.to/proto/maildir.html
-  first_dot = old_name.find(".")
-  if first_dot > -1:
-    return str(int(time.time())) + old_name[first_dot:]
+  # First make sure to strip the ,U=nnn infix so that mbsync isn't confused when
+  # using the native storage scheme.
+  # https://sourceforge.net/p/isync/mailman/message/33359742/
+  name = re.sub(",U=[0-9]+", "", old_name)
 
-  # Otherwise we just use a UUID, preserving the flag part if present.
-  first_colon = old_name.find(":")
-  if first_colon > -1:
-    return str(uuid.uuid1()) + old_name[first_colon:]
-  return str(uuid.uuid1())
+  # If the name is prefixed with a timestamp then we can just replace it with
+  # the current time.
+  # http://cr.yp.to/proto/maildir.html
+  match = re.match("^[0-9]+\.", name)
+  if match:
+    return str(int(time.time())) + name[match.end()-1:]
+
+  # Otherwise we'll replace everything before the flags (if present)
+  # with a UUID.
+  # https://github.com/afewmail/afew/blob/master/afew/MailMover.py
+  return str(uuid.uuid1()) + re.sub("^[^:]+", "", name)
 
 def move_messages(query_string, destination_folder):
   db = notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE)
