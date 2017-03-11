@@ -29,6 +29,7 @@ _(Not actually supposed to be used by other people...)_
 
 - Run `./syncmail` to do a complete mail synchronisation every two minutes.
 - Run `./syncmail 1` to fetch incoming emails every 30 seconds.
+- Press Enter to have the script synchronise again immediately.
 
 
 ## TODO

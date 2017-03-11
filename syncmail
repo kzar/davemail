@@ -17,5 +17,5 @@ while [ TRUE ];do
             notmuch new && \
             python postsync.py
     fi
-    sleep $delay
+    read -t $delay
 done
