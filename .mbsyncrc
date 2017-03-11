@@ -4,7 +4,6 @@ SSLType IMAPS
 SSLVersions TLSv1.2
 User kzar@kzar.co.uk
 PassCmd "gpg -q --for-your-eyes-only -d ~/code/davemail/.password.gpg"
-CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore kzar-remote
 Account kzar
@@ -18,13 +17,8 @@ Flatten .
 Channel kzar
 Master :kzar-remote:
 Slave :kzar-local:
-# I only need to keep a few folders in sync
 Patterns INBOX Travel Archive Sent Spam Trash
-# Automatically create missing mailboxes, both locally and on the server
-Create Both
-# Really delete messages!
 Expunge Both
-# Save the synchronization state files in the relevant directory
 SyncState *
 Sync All
 
