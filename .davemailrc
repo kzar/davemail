@@ -1,0 +1,8 @@
+[general]
+default_folder=Archive
+
+[tag_folder_mapping]
+inbox=INBOX
+travel=Travel
+spam=Spam
+deleted=Trash

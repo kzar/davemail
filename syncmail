@@ -12,7 +12,10 @@ fi
 while [ TRUE ];do
     if [ `nmcli networking connectivity` = 'full' ]
     then
-        python presync.py && mbsync $channel && notmuch new && ./postsync.sh
+        python presync.py && \
+            mbsync $channel && \
+            notmuch new && \
+            python postsync.py
     fi
     sleep $delay
 done

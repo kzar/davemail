@@ -11,7 +11,7 @@ Account kzar
 
 MaildirStore kzar-local
 # Important if you *ever* move emails from one folder to another without
-# renaming them. (For example using webmail!)
+# renaming them, for example using webmail!
 AltMap yes
 # The trailing "/" is important
 Path ~/Maildir/
@@ -22,7 +22,7 @@ Channel kzar
 Master :kzar-remote:
 Slave :kzar-local:
 # I only need to keep a few folders in sync
-Patterns INBOX Travel Archive Sent Spam
+Patterns INBOX Travel Archive Sent Spam Trash
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
 # Really delete messages!
