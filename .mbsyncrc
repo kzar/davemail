@@ -3,7 +3,7 @@ Host imap.fastmail.com
 SSLType IMAPS
 SSLVersions TLSv1.2
 User kzar@kzar.co.uk
-PassCmd "gpg -q --for-your-eyes-only -d ~/code/davemail/.password.gpg"
+PassCmd "gpg -q --for-your-eyes-only -d .password.gpg"
 
 IMAPStore kzar-remote
 Account kzar
