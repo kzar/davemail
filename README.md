@@ -40,7 +40,8 @@ _(Not actually supposed to be used by other people...)_
 - Fix up Rietveld emails:
  - Quoted text is often wrapped too eagerly.
  - No thread ID is given so messages aren't kept together.
-
+- If sending fails and the mail is later sent from the msmtp queue the Fcc copy
+  to the Sent folder is not written.
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
