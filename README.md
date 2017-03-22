@@ -36,6 +36,8 @@ _(Not actually supposed to be used by other people...)_
 
 - Avoid messages from being untagged when I happen to tag them just before the
   presync script runs.
+- Fix thread ordering (for webmail) when I send emails from Emacs when in a
+  different timezone.
 - Figure out why forwarded messages sometimes get mangled.
 - Ditch webmail / mobile email completely?!
 - [Set up imapnotify to trigger mbsync, rather than polling.][10]
