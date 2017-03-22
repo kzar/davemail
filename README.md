@@ -34,6 +34,8 @@ _(Not actually supposed to be used by other people...)_
 
 ## TODO
 
+- Avoid messages from being untagged when I happen to tag them just before the
+  presync script runs.
 - Figure out why forwarded messages sometimes get mangled.
 - Ditch webmail / mobile email completely?!
 - [Set up imapnotify to trigger mbsync, rather than polling.][10]
