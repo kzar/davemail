@@ -13,24 +13,6 @@ config.read(".davemailrc")
 default_folder = config.get("general", "default_folder")
 tag_folder_mapping = config.items("tag_folder_mapping")
 
-def new_name(old_name):
-  # First make sure to strip the ,U=nnn infix so that mbsync isn't confused when
-  # using the native storage scheme.
-  # https://sourceforge.net/p/isync/mailman/message/33359742/
-  name = re.sub(",U=[0-9]+", "", old_name)
-
-  # If the name is prefixed with a timestamp then we can just replace it with
-  # the current time.
-  # http://cr.yp.to/proto/maildir.html
-  match = re.match("^[0-9]+\.", name)
-  if match:
-    return str(int(time.time())) + name[match.end()-1:]
-
-  # Otherwise we'll replace everything before the flags (if present)
-  # with a UUID.
-  # https://github.com/afewmail/afew/blob/master/afew/MailMover.py
-  return str(uuid.uuid1()) + re.sub("^[^:]+", "", name)
-
 def move_messages(query_string, destination_folder):
   db = notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE)
   query = db.create_query(query_string)
@@ -39,11 +21,17 @@ def move_messages(query_string, destination_folder):
     old_filename = message.get_filename()
     path, filename = os.path.split(old_filename)
     cur_new = path.split(os.sep)[-1]
+    # We strip the ,U=nnn infix from the filename so that mbsync isn't confused
+    # when using the native storage scheme.
+    # https://sourceforge.net/p/isync/mailman/message/33359742/
     new_filename = os.path.join(db.get_path(), destination_folder,
-                                cur_new, new_name(filename))
-    # Note this might fail if the filename already exists. That's unlikely
-    # however, and the file will be renamed next time this script runs anyway.
-    os.rename(old_filename, new_filename)
+                                cur_new, re.sub(",U=[0-9]+", "", filename))
+    # If the old file no longer exists, or the new one already does then we
+    # simply skip this message for now.
+    try:
+      os.rename(old_filename, new_filename)
+    except OSError:
+      continue
     # We add the new filename to the notmuch database before removing the old
     # one so that the notmuch tags are preserved for the message.
     db.add_message(new_filename)
