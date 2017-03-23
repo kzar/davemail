@@ -14,7 +14,6 @@ while [ TRUE ];do
     then
         python presync.py && \
             mbsync $channel && \
-            notmuch new && \
             python postsync.py
     fi
     read -t $delay

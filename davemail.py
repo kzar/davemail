@@ -52,6 +52,9 @@ def tag_moved_messages():
     call(["notmuch", "tag", "-" + tag, "NOT folder:" + folder])
     call(["notmuch", "tag", "+" + tag, "folder:" + folder])
 
+def update_database():
+  call(["notmuch", "new"])
+
 def run_emacs_hook(hook_name):
   with open(os.devnull, "w") as devnull:
     call(["emacsclient", "-e", "(run-hooks '" + hook_name + ")"],
