@@ -32,6 +32,8 @@ Patterns INBOX Travel Archive Sent Spam Trash
 Expunge Both
 SyncState *
 Sync All
+Create Both
+Remove Both
 
 Channel kzar-quick
 Master :kzar-remote:
