@@ -29,7 +29,7 @@ def move_messages(query_string, destination_folder):
     # If the old file no longer exists, or the new one already does then we
     # simply skip this message for now.
     try:
-      os.rename(old_filename, new_filename)
+      os.renames(old_filename, new_filename)
     except OSError:
       continue
     # We add the new filename to the notmuch database before removing the old
