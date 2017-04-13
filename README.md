@@ -35,12 +35,10 @@ _(Not actually supposed to be used by other people...)_
 
 ## TODO
 
+- Write algorithm to fix broken line wrapping in Rietveld emails.
 - Figure out why forwarded messages sometimes get mangled.
 - Ditch webmail / mobile email completely?!
 - [Set up imapnotify to trigger mbsync, rather than polling.][10]
-- Fix up Rietveld emails:
-  - Quoted text is often wrapped too eagerly.
-  - No thread ID is given so messages aren't kept together.
 - If sending fails and the mail is later sent from the msmtp queue the Fcc copy
   to the Sent folder is not written.
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to

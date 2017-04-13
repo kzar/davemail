@@ -48,7 +48,7 @@ other_email=dave@adblockplus.org;d.barker@eyeo.com;dave@inadub.co.uk;kzar@kzar.d
 #		in the mail store.
 #
 [new]
-tags=inbox
+tags=inbox;new
 ignore=.mbsyncstate;.isyncuidmap.db;.uidvalidity
 
 # Search configuration
