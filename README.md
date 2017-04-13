@@ -24,8 +24,9 @@ My email setup, now under source control as it is getting rather complex!
 
 _(Not actually supposed to be used by other people...)_
 
-- Set up [my Emacs config][5].
-- Create `password.gpg` with the FastMail password.
+1. Install Emacs, Notmuch, msmtp, msmtpq, isync, gpg etc.
+2. Set up [my Emacs config][5].
+3. Create `password.gpg` with the FastMail password.
 
 - Run `./syncmail` to do a complete mail synchronisation every two minutes.
 - Run `./syncmail 1` to fetch incoming emails every 30 seconds.
