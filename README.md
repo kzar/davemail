@@ -13,7 +13,7 @@ My email setup, now under source control as it is getting rather complex!
    a message with the tag `inbox` should be moved to the `INBOX` folder and a
    message with no relevant tags should be moved to the `Archive` folder.
 3. Those scripts also run my pre and post synchronisation hooks in Emacs, which
-   I then use to update my modeline display etc. (See [my Emacs config][5].)
+   I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
 5. Outgoing emails are sent using [msmtp][8] and the [msmtpq][9] script, back
