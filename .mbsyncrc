@@ -5,7 +5,7 @@
 #   The CopyArrivalDate option isn't well documented but it seems that when
 # synchronising a new message it uses the Maildir file's Modify date as the
 # IMAP internaldate attribute and vice versa. Otherwise it seemed the
-# synchronisation time was being used instead. By having the option here it's
+# synchronisation time was being used instead. By setting the option here it's
 # enabled by default for all Channels.
 CopyArrivalDate yes
 

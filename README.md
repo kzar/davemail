@@ -35,7 +35,7 @@ _(Not actually supposed to be used by other people...)_
 
 ## TODO
 
-- Write algorithm to fix broken line wrapping in Rietveld emails.
+- Figure out algorithm to fix broken line wrapping in Rietveld emails.
 - Figure out why forwarded messages sometimes get mangled.
 - Ditch webmail / mobile email completely?!
 - [Set up imapnotify to trigger mbsync, rather than polling.][10]
@@ -43,6 +43,7 @@ _(Not actually supposed to be used by other people...)_
   to the Sent folder is not written.
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to
   Fastmail is slow.
+- Remove hard-coded paths to password.gpg somehow.
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
