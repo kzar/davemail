@@ -33,7 +33,6 @@ Expunge Both
 SyncState *
 Sync All
 Create Both
-Remove Both
 
 Channel kzar-quick
 Master :kzar-remote:
