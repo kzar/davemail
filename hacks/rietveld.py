@@ -62,10 +62,14 @@ def fix_rietveld_email(db, path):
         # (The access time doesn't actually matter to us, but utime requires
         #  that we specify that too.)
         os.utime(path, times)
+        # Also store the notmuch tags, since we're going to lose those.
+        tags = db.find_message_by_filename(path).get_tags()
         # Notmuch won't notice the change unless we remove it from the database
         # and add it back again! FIXME - mbsync won't notice the change at all!
         db.remove_message(path)
-        db.add_message(path)
+        notmuch_message = db.add_message(path)[0]
+        for tag in tags:
+          notmuch_message.add_tag(tag, True)
 
 def fix_rietveld_emails(query_string):
   with notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE) as db:
