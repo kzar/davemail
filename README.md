@@ -35,6 +35,8 @@ _(Not actually supposed to be used by other people...)_
 
 ## TODO
 
+- Figure out how to consider the address the original email was to when
+  forwarding emails. Currently the wrong alias is often used.
 - Figure out algorithm to fix broken line wrapping in Rietveld emails.
 - Figure out why forwarded messages sometimes get mangled.
 - Ditch webmail / mobile email completely?!
