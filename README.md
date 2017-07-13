@@ -8,10 +8,13 @@ My email setup, now under source control as it is getting rather complex!
 1. [mbsync][2] is used to keep a local copy of my emails synchronised using
    IMAP. (Much more efficient and reliably than [offlineimap][3] once set up
    correctly. Unfortunately setting it up correctly [wasn't trivial][4]).
-2. My pre and post synchronisation scripts are run which take care of keeping
-   enforcing the tag to folder mapping as specified in .davemailrc. For example
+2. My pre and post synchronisation scripts are run which take care of
+   the tag to folder mapping as specified in .davemailrc. For example
    a message with the tag `inbox` should be moved to the `INBOX` folder and a
    message with no relevant tags should be moved to the `Archive` folder.
+   They also take care of moving old messages to my `Old` folder, so messages
+   older than six months will be moved there. After which they aren't moved
+   around any more, nor synchronised.
 3. Those scripts also run my pre and post synchronisation hooks in Emacs, which
    I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.

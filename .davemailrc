@@ -6,3 +6,8 @@ inbox=INBOX
 travel=Travel
 spam=Spam
 deleted=Trash
+
+[old_message_archival]
+old_folder=Old
+date_since=6months
+
