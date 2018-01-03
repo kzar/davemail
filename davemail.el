@@ -1,7 +1,11 @@
 (define-key global-map "\C-cm" 'notmuch)
 (setq message-kill-buffer-on-exit t
       notmuch-search-oldest-first t
-      notmuch-fcc-dirs "Sent +sent -inbox"
+      notmuch-fcc-dirs '(("dave@adblockplus.org" .
+                          "\"eyeo/[Gmail].Sent Mail\" +sent +eyeo -inbox")
+                         ("d.barker@eyeo.com" .
+                          "\"eyeo/[Gmail].Sent Mail\" +sent +eyeo -inbox")
+                         (".*" . "\"kzar/Sent\" +sent +kzar -inbox"))
       notmuch-crypto-process-mime t
       notmuch-saved-searches
       '((:name "inbox" :query "tag:inbox")
@@ -41,7 +45,12 @@
           (lambda ()
             (gnus-alias-determine-identity)
             (define-key message-mode-map (kbd "C-c f")
-              'gnus-alias-select-identity)
+              (lambda ()
+                (interactive)
+                (message-remove-header "Fcc")
+                (message-remove-header "Organization")
+                (gnus-alias-select-identity)
+                (notmuch-fcc-header-setup)))
             (flyspell-mode)))
 (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
 
@@ -84,7 +93,7 @@
          "Eyeo GmbH."
          nil
          nil
-         "~/code/davemail/signatures/eyeo.txt")))
+         "~/work/personal/davemail/signatures/eyeo.txt")))
 
 (setq gnus-alias-default-identity "kzar")
 (setq gnus-alias-identity-rules
@@ -92,5 +101,8 @@
         ("@eyeo.com" ("any" "@eyeo\\.com" both) "eyeo")))
 
 ; Outgoing email (msmtp + msmtpq)
-(setq send-mail-function 'sendmail-send-it)
-(setq sendmail-program "/usr/bin/msmtpq")
+(setq send-mail-function 'sendmail-send-it
+      sendmail-program "/usr/bin/msmtpq"
+      mail-specify-envelope-from t
+      message-sendmail-envelope-from 'header
+      mail-envelope-from 'header)

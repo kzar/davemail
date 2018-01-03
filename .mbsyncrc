@@ -21,8 +21,8 @@ Account kzar
 
 MaildirStore kzar-local
 # The trailing "/" is important
-Path ~/Maildir/
-Inbox ~/Maildir/INBOX
+Path ~/Maildir/kzar/
+Inbox ~/Maildir/kzar/INBOX
 Flatten .
 
 Channel kzar
@@ -34,9 +34,31 @@ SyncState *
 Sync All
 Create Both
 
-Channel kzar-quick
-Master :kzar-remote:
-Slave :kzar-local:
-Patterns INBOX
+IMAPAccount eyeo
+Host imap.gmail.com
+SSLType IMAPS
+SSLVersions TLSv1.2
+User dave@adblockplus.org
+PassCmd "gpg -q --for-your-eyes-only -d .eyeo-password.gpg"
+
+IMAPStore eyeo-remote
+Account eyeo
+
+MaildirStore eyeo-local
+# The trailing "/" is important
+Path ~/Maildir/eyeo/
+Inbox ~/Maildir/eyeo/INBOX
+Flatten .
+
+Channel eyeo
+Master :eyeo-remote:
+Slave :eyeo-local:
+# Despite the delimiter being "." locally I had to use "/" here.
+Patterns * !"[Gmail]/Drafts"
+# Apparently Gmail's IMAP implementation is non-standard, so we rather have to
+# move messages to the trash folder, instead of deleting them. Otherwise they'll
+# linger in "All Mail". http://notmuch.198994.n3.nabble.com/Sync-mail-deletion-with-Notmuch-mbsync-for-gmail-tp4036008.html
+Expunge Slave
 SyncState *
-Sync Pull New
+Sync All
+Create Both

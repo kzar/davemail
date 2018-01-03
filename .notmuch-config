@@ -31,7 +31,7 @@ path=/home/kzar/Maildir
 [user]
 name=Dave Barker
 primary_email=kzar@kzar.co.uk
-other_email=dave@adblockplus.org;d.barker@eyeo.com;dave@inadub.co.uk;kzar@kzar.de
+other_email=dave@adblockplus.org;d.barker@eyeo.com;dave@inadub.co.uk;kzar@kzar.de;dave@suboptimal.co.uk;team@suboptimal.co.uk;kzar@my.open.ac.uk;zy661841@my.open.ac.uk
 
 # Configuration for "notmuch new"
 #
@@ -61,7 +61,7 @@ ignore=.mbsyncstate;.isyncuidmap.db;.uidvalidity
 #		query will override that exclusion.
 #
 [search]
-exclude_tags=deleted;spam;
+exclude_tags=deleted;spam
 
 # Maildir compatibility configuration
 #

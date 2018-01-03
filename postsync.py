@@ -13,6 +13,6 @@ if __name__ == "__main__":
   fix_rietveld_emails("tag:new subject:issue subject:by " +
                       "https://codereview.adblockplus.org")
   # Tidy up our tags, removing "new" and adding others based on folder.
-  davemail.tag_moved_messages()
+  davemail.tag_moved_and_new_messages()
   davemail.tag_messages("tag:new", "-new")
   davemail.run_emacs_hook("notmuch-postsync-hook")

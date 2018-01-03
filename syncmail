@@ -1,20 +1,11 @@
 #!/bin/bash
 
-if [ -n "$1" ]
-then
-  channel=kzar-quick
-  delay=30
-else
-  channel=kzar
-  delay=120
-fi
-
 while [ TRUE ];do
     if [ `nmcli networking connectivity` = 'full' ]
     then
         python presync.py && \
-            mbsync $channel && \
+            mbsync -a && \
             python postsync.py
     fi
-    read -t $delay
+    read -t 120
 done

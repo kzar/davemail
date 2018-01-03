@@ -4,7 +4,7 @@
 
 My email setup, now under source control as it is getting rather complex!
 
-0. My emails come in to my [FastMail][1] account.
+0. My personal emails come in to my [FastMail][1] account, work ones into Gmail.
 1. [mbsync][2] is used to keep a local copy of my emails synchronised using
    IMAP. (Much more efficient and reliably than [offlineimap][3] once set up
    correctly. Unfortunately setting it up correctly [wasn't trivial][4]).
@@ -12,15 +12,14 @@ My email setup, now under source control as it is getting rather complex!
    the tag to folder mapping as specified in .davemailrc. For example
    a message with the tag `inbox` should be moved to the `INBOX` folder and a
    message with no relevant tags should be moved to the `Archive` folder.
-   They also take care of moving old messages to my `Old` folder, so messages
-   older than six months will be moved there. After which they aren't moved
-   around any more, nor synchronised.
+   For my work emails new messages are tagged (e.g. spam), but the folder to tag
+   mapping isn't maintained.
 3. Those scripts also run my pre and post synchronisation hooks in Emacs, which
    I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
 5. Outgoing emails are sent using [msmtp][8] and the [msmtpq][9] script, back
-   out via FastMail's servers.
+   out via FastMail or Gmail's servers.
 
 
 ## Usage
@@ -28,11 +27,11 @@ My email setup, now under source control as it is getting rather complex!
 _(Not actually supposed to be used by other people...)_
 
 1. Install Emacs, Notmuch, msmtp, msmtpq, isync, gpg etc.
-2. Set up [my Emacs config][5].
-3. Create `password.gpg` with the FastMail password.
+2. Install Python and configobj.
+3. Set up [my Emacs config][5].
+4. Create password gpg files with email server passwords.
 
 - Run `./syncmail` to do a complete mail synchronisation every two minutes.
-- Run `./syncmail 1` to fetch incoming emails every 30 seconds.
 - Press Enter to have the script synchronise again immediately.
 
 
@@ -48,7 +47,11 @@ _(Not actually supposed to be used by other people...)_
   to the Sent folder is not written.
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to
   Fastmail is slow.
-- Remove hard-coded paths to password.gpg somehow.
+- Remove hard-coded paths to password gpg files somehow.
+- Finish the old message archiving functionality?
+- Figure out how to delete mails from Gmail properly and fix the folder to
+  tag mapping there.
+- Perhaps replace some of davemail.py with [imapfilter][11]?
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
@@ -60,3 +63,4 @@ _(Not actually supposed to be used by other people...)_
 [8]: http://msmtp.sourceforge.net/
 [9]: https://www.emacswiki.org/emacs/GnusMSMTP#toc3
 [10]: https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
+[11]: https://raymii.org/s/blog/Filtering_IMAP_mail_with_imapfilter.html

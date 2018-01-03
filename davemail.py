@@ -1,31 +1,17 @@
 import os
 from subprocess import call
-import time
-import uuid
-from ConfigParser import SafeConfigParser
+from configobj import ConfigObj
 import re
 
 import notmuch
 
-config = SafeConfigParser()
-config.read(".davemailrc")
+config = ConfigObj(".davemailrc")
+for maildir in config:
+  # Prevent the new tag from being mapped to a folder.
+  if "new" in config[maildir]["tag_folder_mapping"]:
+    del config[maildir]["tag_folder_mapping"]["new"]
 
-default_folder = config.get("general", "default_folder")
-tag_folder_mapping = dict(config.items("tag_folder_mapping"))
-
-old_folder = config.get("old_message_archival", "old_folder")
-date_filter = "date:" + config.get("old_message_archival", "date_since") + ".."
-
-# Prevent the new tag from being mapped to a folder since it's a special case.
-if "new" in tag_folder_mapping:
-  del tag_folder_mapping["new"]
-
-# Also prevent mapping to the folder where old messages are archived.
-for tag in tag_folder_mapping.keys():
-  if tag_folder_mapping[tag] == old_folder:
-    del tag_folder_mapping[tag]
-
-def move_messages(query_string, destination_folder):
+def move_messages(query_string, maildir, destination_folder):
   with notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE) as db:
     query = db.create_query(query_string)
 
@@ -36,7 +22,7 @@ def move_messages(query_string, destination_folder):
       # We strip the ,U=nnn infix from the filename so that mbsync isn't
       # confused when using the native storage scheme.
       # https://sourceforge.net/p/isync/mailman/message/33359742/
-      new_filename = os.path.join(db.get_path(), destination_folder,
+      new_filename = os.path.join(db.get_path(), maildir, destination_folder,
                                   cur_new, re.sub(",U=[0-9]+", "", filename))
       # If the old file no longer exists, or the new one already does then we
       # simply skip this message for now.
@@ -50,34 +36,41 @@ def move_messages(query_string, destination_folder):
       db.remove_message(old_filename)
 
 def move_tagged_messages():
-  for tag, folder in tag_folder_mapping.items():
-    # First we move tagged messages into the folder.
-    move_messages("tag:%s AND NOT folder:%s AND %s" %
-                  (tag, folder, date_filter), folder)
-    # Then untagged messages out.
-    move_messages("NOT tag:%s AND folder:%s AND %s" %
-                  (tag, folder, date_filter), default_folder)
+  for maildir in config:
+    if config[maildir].as_bool("maintain_tag_folder_mapping"):
+      default_folder = config[maildir]["default_folder"]
+      for tag, folder in config[maildir]["tag_folder_mapping"].iteritems():
+        # First we move tagged messages into the folder.
+        move_messages("tag:%s AND NOT folder:\"%s/%s\" AND path:%s/**" %
+                      (tag, maildir, folder, maildir),
+                      maildir, folder)
+        # Then untagged messages out.
+        move_messages("NOT tag:%s AND folder:\"%s/%s\"" %
+                      (tag, maildir, folder),
+                      maildir, default_folder)
 
 def tag_messages(query_string, tag):
+  # We tag/untag the messages by calling the notmuch command here since
+  # the Python notmuch API doesn't provide a way to tag messages without
+  # iterating through them.
   call(["notmuch", "tag", tag, query_string])
 
-def tag_moved_messages():
-  for tag, folder in tag_folder_mapping.items():
-    # We tag/untag the messages by calling the notmuch command here since the
-    # Python notmuch API doesn't provide a way to tag messages without
-    # iterating through them.
-    tag_messages("NOT folder:%s AND %s" % (folder, date_filter), "-" + tag)
-    tag_messages("folder:%s AND %s" % (folder, date_filter), "+" + tag)
+def tag_moved_and_new_messages():
+  for maildir in config:
+    # Tag messages based on their maildir
+    tag_messages("path:%s/**" % (maildir), "+" + maildir)
 
-def archive_old_messages():
-  1
-  # FIXME
-  #   - First make sure the message isn't in old_folder or any
-  #     folder within that.
-  #   - Do we want to move INBOX -> Old.INBOX, or just INBOX -> Old?
-  #   - I guess we don't want to archive old messages in other folders,
-  #     for example in travel?
-  # move_messages("NOT " + date_filter, old_folder)
+    for tag, folder in config[maildir]["tag_folder_mapping"].iteritems():
+      if config[maildir].as_bool("maintain_tag_folder_mapping"):
+        # Tag / untag all messages if maintaining tag to folder mapping
+        tag_messages("NOT folder:\"%s/%s\" AND path:%s/**" %
+                     (maildir, folder, maildir), "-" + tag)
+        tag_messages("folder:\"%s/%s\"" %
+                     (maildir, folder), "+" + tag)
+      elif config[maildir].as_bool("tag_new_messages"):
+        # Otherwise only tag new messages which were already filed e.g. spam
+        tag_messages("folder:\"%s/%s\" AND tag:new" %
+                     (maildir, folder), "+" + tag)
 
 def update_database():
   call(["notmuch", "new"])
