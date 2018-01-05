@@ -48,31 +48,42 @@ def fix_wrapping(message):
   # FIXME - Figure out a proper algorithm for this when I have more time!
   return False
 
-def fix_rietveld_email(db, path):
-  with open(path, "r+") as f:
+def fix_rietveld_email(db, paths):
+  # The same message can be stored in multiple files simultaniously. We need to
+  # overwrite them all. For simplicity we consider their contents and Modified
+  # time to be identical, and so we only inspect the first file given.
+  with open(paths[0], "r") as f:
     message = email.message_from_file(f)
-    if valid_message_id(message.get("Message-Id").strip("<>")):
-      if fix_threading(message) or fix_wrapping(message):
-        times = atime_mtime(path)
-        f.seek(0)
-        f.write(message.as_string())
-        f.truncate()
-        # We store the Modify time before making changes and restore it here.
-        # That's important since mbsync uses that for the internaldate property.
-        # (The access time doesn't actually matter to us, but utime requires
-        #  that we specify that too.)
-        os.utime(path, times)
-        # Also store the notmuch tags, since we're going to lose those.
-        tags = db.find_message_by_filename(path).get_tags()
-        # Notmuch won't notice the change unless we remove it from the database
-        # and add it back again! FIXME - mbsync won't notice the change at all!
-        db.remove_message(path)
-        notmuch_message = db.add_message(path)[0]
-        for tag in tags:
-          notmuch_message.add_tag(tag, True)
+
+  if valid_message_id(message.get("Message-Id").strip("<>")):
+    if fix_threading(message) or fix_wrapping(message):
+      # We store the Modify time before making changes and restore it later.
+      # That's important since mbsync uses that for the internaldate
+      # property. (The access time doesn't actually matter to us, but utime
+      # requires that we specify that too.)
+      times = atime_mtime(paths[0])
+      # Also store the notmuch tags, since we're going to lose those.
+      tags = db.find_message_by_filename(paths[0]).get_tags()
+      for path in paths:
+        with open(path, "w") as f:
+          f.write(message.as_string())
+          f.truncate()
+          os.utime(path, times)
+          # Notmuch won't notice our changes to the message unless we remove all
+          # copies of it from the database.
+          # FIXME - mbsync won't notice the change at all!
+          db.remove_message(path)
+      # Add the first copy of the message back into the database and restore its
+      # tags.
+      notmuch_message = db.add_message(paths[0])[0]
+      for tag in tags:
+        notmuch_message.add_tag(tag, True)
+      # Finally add any other copies of the message back into the database.
+      for path in paths[1:]:
+        db.add_message(path)
 
 def fix_rietveld_emails(query_string):
   with notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE) as db:
     query = db.create_query(query_string)
     for message in query.search_messages():
-      fix_rietveld_email(db, message.get_filename())
+      fix_rietveld_email(db, list(message.get_filenames()))
