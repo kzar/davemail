@@ -9,9 +9,10 @@
       notmuch-crypto-process-mime t
       notmuch-saved-searches
       '((:name "inbox" :query "tag:inbox")
+        (:name "inbox personal" :query "tag:inbox AND not tag:eyeo")
+        (:name "inbox work" :query "tag:inbox AND tag:eyeo")
         (:name "travel" :query "tag:travel")
         ;(:name "unread" :query "tag:unread" :key "u")
-        (:name "trac" :query "from:\"Adblock Plus Issue Tracker\"")
         (:name "flagged" :query "tag:flagged" :key "f")
         (:name "all mail" :query "*" :key "d")))
 (eval-after-load "notmuch"
@@ -25,7 +26,7 @@
 (defun kzar/get-notmuch-incoming-count ()
   (string-trim
    (shell-command-to-string
-    "notmuch count tag:inbox AND tag:unread AND '\(folder:INBOX or folder:INBOX.Eyeo\)'")))
+    "notmuch count tag:inbox AND tag:unread")))
 (defun kzar/format-notmuch-mode-string (count)
   (concat " 📧[" (if (string= count "0") "" count) "]"))
 (defun kzar/update-notmuch-activity-string (&rest args)
