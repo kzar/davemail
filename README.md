@@ -52,6 +52,8 @@ _(Not actually supposed to be used by other people...)_
 - Figure out how to delete mails from Gmail properly and fix the folder to
   tag mapping there.
 - Perhaps replace some of davemail.py with [imapfilter][11]?
+- Somehow have notmuch make use of my contacts from Gmail / Fastmail locally,
+  instead of rely on the email database.
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
