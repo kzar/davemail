@@ -14,7 +14,7 @@ Host imap.fastmail.com
 SSLType IMAPS
 SSLVersions TLSv1.2
 User kzar@kzar.co.uk
-PassCmd "gpg -q --for-your-eyes-only -d .password.gpg"
+PassCmd "secret-tool lookup email kzar@kzar.co.uk"
 
 IMAPStore kzar-remote
 Account kzar
@@ -39,7 +39,7 @@ Host imap.gmail.com
 SSLType IMAPS
 SSLVersions TLSv1.2
 User dave@adblockplus.org
-PassCmd "gpg -q --for-your-eyes-only -d .eyeo-password.gpg"
+PassCmd "secret-tool lookup email dave@adblockplus.org"
 
 IMAPStore eyeo-remote
 Account eyeo

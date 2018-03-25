@@ -20,20 +20,31 @@ My email setup, now under source control as it is getting rather complex!
    [Gnus alias][7] for handling my different email identities + signatures.
 5. Outgoing emails are sent using [msmtp][8] and the [msmtpq][9] script, back
    out via FastMail or Gmail's servers.
-
+6. [vdirsyncer][10] synchronises my contacts and calendars with FastMail, so
+   that I have a local copy to use for address completion etc.
 
 ## Usage
 
 _(Not actually supposed to be used by other people...)_
 
-1. Install Emacs, Notmuch, msmtp, msmtpq, isync, gpg etc.
+1. Install Emacs, Notmuch, msmtp, msmtpq, isync, gpg, libsecret-tools,
+   vdirsyncer etc.
 2. Install Python and configobj.
 3. Set up [my Emacs config][5].
-4. Create password gpg files with email server passwords.
+4. Store email server passwords e.g.
+   `secret-tool store --label="Email: kzar@kzar.co.uk" email kzar@kzar.co.uk`
+5. Set up symlinks for the configuration files:
+```
+ln -s ~/path/to/davemail/.mbsyncrc ~/
+ln -s ~/path/to/davemail/.msmtprc ~/
+ln -s ~/path/to/davemail/.notmuch-config ~/
+ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
+```
 
 - Run `./syncmail` to do a complete mail synchronisation every two minutes.
 - Press Enter to have the script synchronise again immediately.
-
+- Run `vdirsyncer sync` to synchronise personal contacts and calendar with
+  Fastmail.
 
 ## TODO
 
@@ -42,18 +53,17 @@ _(Not actually supposed to be used by other people...)_
 - Figure out algorithm to fix broken line wrapping in Rietveld emails.
 - Figure out why forwarded messages sometimes get mangled.
 - Ditch webmail / mobile email completely?!
-- [Set up imapnotify to trigger mbsync, rather than polling.][10]
+- [Set up imapnotify to trigger mbsync, rather than polling.][11]
 - If sending fails and the mail is later sent from the msmtp queue the Fcc copy
   to the Sent folder is not written.
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to
   Fastmail is slow.
-- Remove hard-coded paths to password gpg files somehow.
 - Finish the old message archiving functionality?
 - Figure out how to delete mails from Gmail properly and fix the folder to
   tag mapping there.
-- Perhaps replace some of davemail.py with [imapfilter][11]?
-- Somehow have notmuch make use of my contacts from Gmail / Fastmail locally,
-  instead of rely on the email database.
+- Perhaps replace some of davemail.py with [imapfilter][12]?
+- Have notmuch use my local copy of my contacts [for address completion][13] as
+  well as the notmuch database. (See `notmuch-address-command`.)
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
@@ -64,5 +74,7 @@ _(Not actually supposed to be used by other people...)_
 [7]: https://www.emacswiki.org/emacs/GnusAlias
 [8]: http://msmtp.sourceforge.net/
 [9]: https://www.emacswiki.org/emacs/GnusMSMTP#toc3
-[10]: https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
-[11]: https://raymii.org/s/blog/Filtering_IMAP_mail_with_imapfilter.html
+[10]: https://vdirsyncer.pimutils.org/en/stable/index.html
+[11]: https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
+[12]: https://raymii.org/s/blog/Filtering_IMAP_mail_with_imapfilter.html
+[13]: https://notmuchmail.org/emacstips/#index13h2

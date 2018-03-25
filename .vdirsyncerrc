@@ -1,0 +1,34 @@
+[general]
+status_path = "~/.vdirsyncer/status/"
+
+[pair card]
+a = "card_local"
+b = "card_remote"
+collections = ["from b", "from a"]
+
+[pair cal]
+a = "cal_local"
+b = "cal_remote"
+collections = ["from b", "from a"]
+
+[storage cal_local]
+type = "filesystem"
+path = "~/.calendar"
+fileext = ".vcf"
+
+[storage card_local]
+type = "filesystem"
+path = "~/.contacts"
+fileext = ".vcf"
+
+[storage cal_remote]
+type = "caldav"
+url = "https://caldav.fastmail.com/"
+username = "kzar@kzar.co.uk"
+password.fetch = ["command", "secret-tool", "lookup", "email", "kzar@kzar.co.uk"]
+
+[storage card_remote]
+type = "carddav"
+url = "https://carddav.fastmail.com/"
+username = "kzar@kzar.co.uk"
+password.fetch = ["command", "secret-tool", "lookup", "email", "kzar@kzar.co.uk"]
