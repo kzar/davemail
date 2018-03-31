@@ -18,8 +18,8 @@ My email setup, now under source control as it is getting rather complex!
    I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
-5. Outgoing emails are sent using [msmtp][8] and the [msmtpq][9] script, back
-   out via FastMail or Gmail's servers.
+5. Outgoing emails are sent using [msmtp][8] ~~and the [msmtpq][9] script~~,
+   back out via FastMail or Gmail's servers.
 6. [vdirsyncer][10] synchronises my contacts and calendars with FastMail, so
    that I have a local copy to use for address completion etc.
 
@@ -65,6 +65,7 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 - Have notmuch use my local copy of my contacts [for address completion][13] as
   well as the notmuch database. (See `notmuch-address-command`.)
 - Use [syncmaildir][14] instead of IMAP?
+- Replace msmtp and msmtpq with [nullmailer][15]?
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
@@ -80,3 +81,4 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 [12]: https://raymii.org/s/blog/Filtering_IMAP_mail_with_imapfilter.html
 [13]: https://notmuchmail.org/emacstips/#index13h2
 [14]: http://syncmaildir.sourceforge.net/
+[15]: http://www.troubleshooters.com/linux/nullmailer/
