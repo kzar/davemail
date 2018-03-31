@@ -64,6 +64,7 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 - Perhaps replace some of davemail.py with [imapfilter][12]?
 - Have notmuch use my local copy of my contacts [for address completion][13] as
   well as the notmuch database. (See `notmuch-address-command`.)
+- Use [syncmaildir][14] instead of IMAP?
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
@@ -78,3 +79,4 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 [11]: https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
 [12]: https://raymii.org/s/blog/Filtering_IMAP_mail_with_imapfilter.html
 [13]: https://notmuchmail.org/emacstips/#index13h2
+[14]: http://syncmaildir.sourceforge.net/
