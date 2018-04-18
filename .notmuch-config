@@ -61,7 +61,7 @@ ignore=.mbsyncstate;.isyncuidmap.db;.uidvalidity
 #		query will override that exclusion.
 #
 [search]
-exclude_tags=deleted;spam
+exclude_tags=deleted;spam;muted
 
 # Maildir compatibility configuration
 #

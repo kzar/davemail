@@ -1,5 +1,5 @@
 import os
-from subprocess import call
+from subprocess import call, check_output
 from configobj import ConfigObj
 import re
 
@@ -71,6 +71,15 @@ def tag_moved_and_new_messages():
         # Otherwise only tag new messages which were already filed e.g. spam
         tag_messages("folder:\"%s/%s\" AND tag:new" %
                      (maildir, folder), "+" + tag)
+
+def tag_muted_threads():
+  # New messages in muted threads won't have the muted tag yet, so to avoid
+  # those showing up in searches we take care to tag them now.
+  # See https://notmuchmail.org/excluding/
+  muted_threads = check_output(
+    ["notmuch", "search", "--output=threads", "tag:muted"]
+  ).replace(os.linesep, " ").strip()
+  tag_messages(muted_threads, "+muted")
 
 def update_database():
   call(["notmuch", "new"])
