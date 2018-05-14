@@ -6,7 +6,7 @@
                          ("d.barker@eyeo.com" .
                           "\"eyeo/[Gmail].Sent Mail\" +sent +eyeo -inbox")
                          (".*" . "\"kzar/Sent\" +sent +kzar -inbox"))
-      notmuch-crypto-process-mime t
+      notmuch-crypto-process-mime nil
       notmuch-saved-searches
       '((:name "inbox" :query "tag:inbox")
         (:name "inbox personal" :query "tag:inbox AND not tag:eyeo")
@@ -53,7 +53,6 @@
                 (gnus-alias-select-identity)
                 (notmuch-fcc-header-setup)))
             (flyspell-mode)))
-(add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
 
 ; https://notmuchmail.org/emacstips/#index25h2
 (defun my-notmuch-show-view-as-patch ()
