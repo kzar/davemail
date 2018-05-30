@@ -78,6 +78,8 @@ def fix_rietveld_email(db, paths):
       notmuch_message = db.add_message(paths[0])[0]
       for tag in tags:
         notmuch_message.add_tag(tag, True)
+      # Add the rietveld tag so I can find these emails again easily.
+      notmuch_message.add_tag("rietveld")
       # Finally add any other copies of the message back into the database.
       for path in paths[1:]:
         db.add_message(path)
