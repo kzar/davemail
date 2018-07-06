@@ -4,13 +4,13 @@
 
 My email setup, now under source control as it is getting rather complex!
 
-0. My personal emails come in to my [FastMail][1] account, work ones into Gmail.
+0. My personal emails come into my [FastMail][1] account, work ones into Gmail.
 1. [mbsync][2] is used to keep a local copy of my emails synchronised using
    IMAP. (Much more efficient and reliably than [offlineimap][3] once set up
    correctly. Unfortunately setting it up correctly [wasn't trivial][4]).
 2. My pre and post synchronisation scripts are run which take care of
-   the tag to folder mapping as specified in .davemailrc. For example
-   a message with the tag `inbox` should be moved to the `INBOX` folder and a
+   the tag to folder mapping as specified in .davemailrc. For example,
+   a message with the tag `inbox` should be moved to the `INBOX` folder, and a
    message with no relevant tags should be moved to the `Archive` folder.
    For my work emails new messages are tagged (e.g. spam), but the folder to tag
    mapping isn't maintained.
@@ -20,7 +20,7 @@ My email setup, now under source control as it is getting rather complex!
    [Gnus alias][7] for handling my different email identities + signatures.
 5. Outgoing emails are sent using [msmtp][8] ~~and the [msmtpq][9] script~~,
    back out via FastMail or Gmail's servers.
-6. [vdirsyncer][10] synchronises my contacts and calendars with FastMail, so
+6. [vdirsyncer][10] synchronises my contacts and calendars with FastMail so
    that I have a local copy to use for address completion etc.
 
 ## Usage
@@ -49,17 +49,17 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 ## TODO
 
 - Figure out how to consider the address the original email was to when
-  forwarding emails. Currently the wrong alias is often used.
-- Figure out algorithm to fix broken line wrapping in Rietveld emails.
+  forwarding emails. Currently, the wrong alias is often used.
+- Figure out an algorithm to fix broken line wrapping in Rietveld emails.
 - Figure out why forwarded messages sometimes get mangled.
-- Ditch webmail / mobile email completely?!
+- Ditch webmail/mobile email completely?!
 - [Set up imapnotify to trigger mbsync, rather than polling.][11]
 - If sending fails and the mail is later sent from the msmtp queue the Fcc copy
   to the Sent folder is not written.
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to
   Fastmail is slow.
 - Finish the old message archiving functionality?
-- Figure out how to delete mails from Gmail properly and fix the folder to
+- Figure out how to delete emails from Gmail properly and fix the folder to
   tag mapping there.
 - Perhaps replace some of davemail.py with [imapfilter][12]?
 - Have notmuch use my local copy of my contacts [for address completion][13] as
