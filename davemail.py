@@ -2,6 +2,7 @@ import os
 from subprocess import call, check_output
 from configobj import ConfigObj
 import re
+import email
 
 import notmuch
 
@@ -80,6 +81,30 @@ def tag_muted_threads():
     ["notmuch", "search", "--output=threads", "tag:muted"]
   ).replace(os.linesep, " ").strip()
   tag_messages(muted_threads, "+muted")
+
+def header_matches(filename, header_name, regexp):
+  with open(filename, "r") as f:
+    message = email.message_from_file(f)
+
+    for header_value in message.get_all(header_name, []):
+      if regexp.match(header_value):
+        return True
+    return False
+
+# Occasionally it's useful to tag messages based on a header value which notmuch
+# doesn't index. For the messages matching the query, assign the tag if the
+# message header exists and matches the given regexp. *Warning slow!*
+def tag_other_header_match(query_string, header_name, regexp, tags):
+  regexp = re.compile(regexp)
+  with notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE) as db:
+    query = db.create_query(query_string)
+    for message in query.search_messages():
+      if header_matches(message.get_filename(), header_name, regexp):
+        for tag in tags.split():
+          if tag[0] == "+":
+            message.add_tag(tag[1:])
+          elif tag[0] == "-":
+            message.remove_tag(tag[1:])
 
 def update_database():
   call(["notmuch", "new"])
