@@ -82,14 +82,14 @@
 (setq gnus-alias-identity-alist
       '(("kzar"
          nil ;; Does not refer to any other identity
-         "Dave Barker <kzar@kzar.co.uk>"
+         "Dave Vandyke <kzar@kzar.co.uk>"
          nil ;; No organization header
          nil ;; No extra headers
          nil ;; No extra body text
          nil)
         ("eyeo"
          nil
-         "Dave Barker <dave@adblockplus.org>"
+         "Dave Vandyke <dave@adblockplus.org>"
          "Eyeo GmbH."
          nil
          nil

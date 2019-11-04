@@ -29,7 +29,7 @@ path=/home/kzar/Maildir
 # address to which the original email was addressed.
 #
 [user]
-name=Dave Barker
+name=Dave Vandyke
 primary_email=kzar@kzar.co.uk
 other_email=dave@adblockplus.org;d.barker@eyeo.com;dave@inadub.co.uk;kzar@kzar.de;dave@suboptimal.co.uk;team@suboptimal.co.uk;zy661841@ou.ac.uk
 
