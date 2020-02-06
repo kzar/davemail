@@ -9,6 +9,8 @@ if __name__ == "__main__":
   davemail.tag_moved_and_new_messages()
   davemail.tag_messages("tag:eyeo AND tag:new AND from:app@peakon.com",
                         "+muted")
+  davemail.tag_messages("tag:eyeo AND subject:'Invitation:' AND " +
+                        "(subject:'office hours' OR subject:'yoga')", "+muted")
   davemail.tag_other_header_match("tag:eyeo AND tag:new",
                                   "Received", ".*sosafe\.de.*", "+muted")
   davemail.tag_muted_threads()
