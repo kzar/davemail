@@ -7,6 +7,8 @@ if __name__ == "__main__":
   davemail.update_database()
   # Tidy up our tags, removing "new" and adding others based on folder.
   davemail.tag_moved_and_new_messages()
+  davemail.tag_messages("tag:new AND from:feedback@slack.com AND " +
+                        "subject:'reminder'", "+muted")
   davemail.tag_messages("tag:eyeo AND tag:new AND from:app@peakon.com",
                         "+muted")
   davemail.tag_messages("tag:eyeo AND subject:'Invitation:' AND " +
