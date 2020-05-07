@@ -3,9 +3,9 @@
 while [ TRUE ];do
     if [ `nmcli networking connectivity` = 'full' ]
     then
-        python presync.py && \
+        python3 presync.py && \
             mbsync -a && \
-            python postsync.py
+            python3 postsync.py
     fi
     read -t 120
 done

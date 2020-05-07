@@ -79,7 +79,7 @@ def tag_muted_threads():
   # See https://notmuchmail.org/excluding/
   muted_threads = check_output(
     ["notmuch", "search", "--output=threads", "tag:muted"]
-  ).replace(os.linesep, " ").strip()
+  ).decode("utf-8").replace(os.linesep, " ").strip()
   tag_messages(muted_threads, "+muted")
 
 def header_matches(filename, header_name, regexp):
