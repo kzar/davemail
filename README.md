@@ -18,17 +18,16 @@ My email setup, now under source control as it is getting rather complex!
    I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
-5. Outgoing emails are sent using [msmtp][8] ~~and the [msmtpq][9] script~~,
-   back out via FastMail or Gmail's servers.
-6. [vdirsyncer][10] synchronises my contacts and calendars with FastMail so
+5. Outgoing emails are sent using [msmtp][8], back out via FastMail or Gmail's
+   servers.
+6. [vdirsyncer][9] synchronises my contacts and calendars with FastMail so
    that I have a local copy to use for address completion etc.
 
 ## Usage
 
 _(Not actually supposed to be used by other people...)_
 
-1. Install Emacs, Notmuch, msmtp, msmtpq, isync, gpg, libsecret-tools,
-   vdirsyncer etc.
+1. Install Emacs, Notmuch, msmtp, isync, gpg, libsecret-tools, vdirsyncer etc.
 2. Install Python and configobj.
 3. Set up [my Emacs config][5].
 4. Store email server passwords e.g.
@@ -52,19 +51,17 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
   forwarding emails. Currently, the wrong alias is often used.
 - Figure out why forwarded messages sometimes get mangled.
 - Ditch webmail/mobile email completely?!
-- [Set up imapnotify to trigger mbsync, rather than polling.][11]
-- If sending fails and the mail is later sent from the msmtp queue the Fcc copy
-  to the Sent folder is not written.
+- [Set up imapnotify to trigger mbsync, rather than polling.][10]
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to
   Fastmail is slow.
 - Finish the old message archiving functionality?
 - Figure out how to delete emails from Gmail properly and fix the folder to
   tag mapping there.
-- Perhaps replace some of davemail.py with [imapfilter][12]?
-- Have notmuch use my local copy of my contacts [for address completion][13] as
+- Perhaps replace some of davemail.py with [imapfilter][11]?
+- Have notmuch use my local copy of my contacts [for address completion][12] as
   well as the notmuch database. (See `notmuch-address-command`.)
-- Use [syncmaildir][14] instead of IMAP?
-- Replace msmtp and msmtpq with [nullmailer][15]?
+- Use [syncmaildir][13] instead of IMAP?
+- Replace msmtp with [nullmailer][14]?
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
@@ -74,10 +71,9 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 [6]: https://notmuchmail.org/
 [7]: https://www.emacswiki.org/emacs/GnusAlias
 [8]: http://msmtp.sourceforge.net/
-[9]: https://www.emacswiki.org/emacs/GnusMSMTP#toc3
-[10]: https://vdirsyncer.pimutils.org/en/stable/index.html
-[11]: https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
-[12]: https://raymii.org/s/blog/Filtering_IMAP_mail_with_imapfilter.html
-[13]: https://notmuchmail.org/emacstips/#index13h2
-[14]: http://syncmaildir.sourceforge.net/
-[15]: http://www.troubleshooters.com/linux/nullmailer/
+[9]: https://vdirsyncer.pimutils.org/en/stable/index.html
+[10]: https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
+[11]: https://raymii.org/s/blog/Filtering_IMAP_mail_with_imapfilter.html
+[12]: https://notmuchmail.org/emacstips/#index13h2
+[13]: http://syncmaildir.sourceforge.net/
+[14]: http://www.troubleshooters.com/linux/nullmailer/
