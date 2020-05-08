@@ -28,7 +28,9 @@
    (shell-command-to-string
     "notmuch count tag:inbox AND tag:unread")))
 (defun kzar/format-notmuch-mode-string (count)
-  (concat " 📧[" (if (string= count "0") "" count) "]"))
+  (let* ((no-email (string= count "0"))
+         (email-icon (if no-email "📭" "📬")))
+    (concat email-icon "[" (if no-email "" count) "]")))
 (defun kzar/update-notmuch-activity-string (&rest args)
   (setq kzar/notmuch-activity-string
         (kzar/format-notmuch-mode-string (kzar/get-notmuch-incoming-count)))
