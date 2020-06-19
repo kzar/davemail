@@ -38,7 +38,7 @@ IMAPAccount eyeo
 Host imap.gmail.com
 SSLType IMAPS
 SSLVersions TLSv1.2
-User dave@adblockplus.org
+User d.vandyke@eyeo.com
 PassCmd "secret-tool lookup email dave@adblockplus.org"
 
 IMAPStore eyeo-remote
