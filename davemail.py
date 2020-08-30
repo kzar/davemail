@@ -83,8 +83,8 @@ def tag_muted_threads():
   tag_messages(muted_threads, "+muted")
 
 def header_matches(filename, header_name, regexp):
-  with open(filename, "r") as f:
-    message = email.message_from_file(f)
+  with open(filename, "rb") as f:
+    message = email.message_from_binary_file(f)
 
     for header_value in message.get_all(header_name, []):
       if regexp.match(header_value):

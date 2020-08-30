@@ -31,7 +31,7 @@ path=/home/kzar/Maildir
 [user]
 name=Dave Vandyke
 primary_email=kzar@kzar.co.uk
-other_email=dave@adblockplus.org;d.vandyke@eyeo.com;kzar@kzar.de;zy661841@ou.ac.uk
+other_email=dave@suboptimal.co.uk;dave@vandyke.co.uk;zy661841@ou.ac.uk
 
 # Configuration for "notmuch new"
 #

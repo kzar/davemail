@@ -12,17 +12,3 @@
   [[old_message_archival]]
     old_folder=Old
     date_since=6months
-
-[eyeo]
-  # Since Gmail ends up giving us a bunch of duplicate copies of each email
-  # I'm not sure how the notmuch tag to folder mapping can work. I've switched
-  # it off for now, instead only tagging new messages as they come in.
-  tag_new_messages=True
-  maintain_tag_folder_mapping=False
-
-  [[tag_folder_mapping]]
-    inbox=INBOX
-    spam="[Gmail].Spam"
-    starred="[Gmail].Starred"
-    sent="[Gmail].Sent Mail"
-    deleted="[Gmail].Trash"

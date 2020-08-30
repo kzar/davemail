@@ -1,16 +1,10 @@
 (define-key global-map "\C-cm" 'notmuch)
 (setq message-kill-buffer-on-exit t
       notmuch-search-oldest-first t
-      notmuch-fcc-dirs '(("dave@adblockplus.org" .
-                          "\"eyeo/[Gmail].Sent Mail\" +sent +eyeo -inbox")
-                         ("d.barker@eyeo.com" .
-                          "\"eyeo/[Gmail].Sent Mail\" +sent +eyeo -inbox")
-                         (".*" . "\"kzar/Sent\" +sent +kzar -inbox"))
+      notmuch-fcc-dirs '((".*" . "\"kzar/Sent\" +sent +kzar -inbox"))
       notmuch-crypto-process-mime nil
       notmuch-saved-searches
       '((:name "inbox" :query "tag:inbox")
-        (:name "inbox personal" :query "tag:inbox AND not tag:eyeo")
-        (:name "inbox work" :query "tag:inbox AND tag:eyeo")
         (:name "travel" :query "tag:travel")
         ;(:name "unread" :query "tag:unread" :key "u")
         (:name "flagged" :query "tag:flagged" :key "f")
@@ -88,19 +82,9 @@
          nil ;; No organization header
          nil ;; No extra headers
          nil ;; No extra body text
-         nil)
-        ("eyeo"
-         nil
-         "Dave Vandyke <dave@adblockplus.org>"
-         "Eyeo GmbH."
-         nil
-         nil
-         "~/work/personal/davemail/signatures/eyeo.txt")))
+         nil)))
 
 (setq gnus-alias-default-identity "kzar")
-(setq gnus-alias-identity-rules
-      '(("@adblockplus.org" ("any" "@adblockplus\\.org" both) "eyeo")
-        ("@eyeo.com" ("any" "@eyeo\\.com" both) "eyeo")))
 
 ; Outgoing email (msmtp + msmtpq)
 (setq send-mail-function 'sendmail-send-it

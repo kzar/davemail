@@ -4,7 +4,7 @@
 
 My email setup, now under source control as it is getting rather complex!
 
-0. My personal emails come into my [FastMail][1] account, work ones into Gmail.
+0. My personal emails come into my [FastMail][1] account.
 1. [mbsync][2] is used to keep a local copy of my emails synchronised using
    IMAP. (Much more efficient and reliably than [offlineimap][3] once set up
    correctly. Unfortunately setting it up correctly [wasn't trivial][4]).
@@ -12,14 +12,11 @@ My email setup, now under source control as it is getting rather complex!
    the tag to folder mapping as specified in .davemailrc. For example,
    a message with the tag `inbox` should be moved to the `INBOX` folder, and a
    message with no relevant tags should be moved to the `Archive` folder.
-   For my work emails new messages are tagged (e.g. spam), but the folder to tag
-   mapping isn't maintained.
 3. Those scripts also run my pre and post synchronisation hooks in Emacs, which
    I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
-5. Outgoing emails are sent using [msmtp][8], back out via FastMail or Gmail's
-   servers.
+5. Outgoing emails are sent using [msmtp][8], back out via FastMail's servers.
 6. [vdirsyncer][9] synchronises my contacts and calendars with FastMail so
    that I have a local copy to use for address completion etc.
 
@@ -55,8 +52,6 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to
   Fastmail is slow.
 - Finish the old message archiving functionality?
-- Figure out how to delete emails from Gmail properly and fix the folder to
-  tag mapping there.
 - Perhaps replace some of davemail.py with [imapfilter][11]?
 - Have notmuch use my local copy of my contacts [for address completion][12] as
   well as the notmuch database. (See `notmuch-address-command`.)
