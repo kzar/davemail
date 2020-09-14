@@ -5,6 +5,7 @@
       notmuch-crypto-process-mime nil
       notmuch-saved-searches
       '((:name "inbox" :query "tag:inbox")
+        (:name "inbox work" :query "tag:inbox AND tag:suboptimal")
         (:name "travel" :query "tag:travel")
         ;(:name "unread" :query "tag:unread" :key "u")
         (:name "flagged" :query "tag:flagged" :key "f")

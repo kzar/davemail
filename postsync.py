@@ -9,6 +9,9 @@ if __name__ == "__main__":
   davemail.tag_moved_and_new_messages()
   davemail.tag_messages("tag:new AND from:feedback@slack.com AND " +
                         "subject:'reminder'", "+muted")
+  davemail.tag_other_header_match("tag:new",
+                                  "X-Original-Delivered-to",
+                                  ".*suboptimal\.co\.uk$", "+suboptimal")
   davemail.tag_muted_threads()
   davemail.tag_messages("tag:new", "-new")
   davemail.run_emacs_hook("notmuch-postsync-hook")
