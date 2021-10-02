@@ -12,3 +12,16 @@
   [[old_message_archival]]
     old_folder=Old
     date_since=6months
+
+[duckduckgo]
+  default_folder=Archive
+  tag_new_messages=True
+  maintain_tag_folder_mapping=True
+
+  [[tag_folder_mapping]]
+    inbox=INBOX
+    asana=Asana
+    mattermost=Mattermost
+    ft-privacyeng=ft-privacyeng
+    spam="Junk Email"
+    deleted="Deleted Items"

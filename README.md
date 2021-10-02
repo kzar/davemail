@@ -4,7 +4,8 @@
 
 My email setup, now under source control as it is getting rather complex!
 
-0. My personal emails come into my [FastMail][1] account.
+0. My personal emails come into my [FastMail][1] account, work ones into
+   Outlook.
 1. [mbsync][2] is used to keep a local copy of my emails synchronised using
    IMAP. (Much more efficient and reliably than [offlineimap][3] once set up
    correctly. Unfortunately setting it up correctly [wasn't trivial][4]).
@@ -16,9 +17,10 @@ My email setup, now under source control as it is getting rather complex!
    I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
-5. Outgoing emails are sent using [msmtp][8], back out via FastMail's servers.
-6. [vdirsyncer][9] synchronises my contacts and calendars with FastMail so
-   that I have a local copy to use for address completion etc.
+5. Outgoing emails are sent using [msmtp][8], back out via FastMail's or
+   Outlook's servers.
+6. [vdirsyncer][9] synchronises my personal contacts and calendars with FastMail
+   so that I have a local copy to use for address completion etc.
 
 ## Usage
 
@@ -34,7 +36,7 @@ _(Not actually supposed to be used by other people...)_
 ln -s ~/path/to/davemail/.mbsyncrc ~/
 ln -s ~/path/to/davemail/.msmtprc ~/
 ln -s ~/path/to/davemail/.notmuch-config ~/
-ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
+ln -s ~/path/to/davemail/.vdirsyncerrc ~/.config/vdirsyncer/config
 ```
 
 - Run `./syncmail` to do a complete mail synchronisation every two minutes.
@@ -44,6 +46,9 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.vdirsyncer/config
 
 ## TODO
 
+- The tag to folder mapping seems to get messed up when you send an email from
+  one of your accounts to another one of your accounts. It seems that "inbox"
+  tag gets lost on the receiving end the second time mail is synced.
 - Figure out how to consider the address the original email was to when
   forwarding emails. Currently, the wrong alias is often used.
 - Figure out why forwarded messages sometimes get mangled.

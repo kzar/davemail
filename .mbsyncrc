@@ -33,3 +33,28 @@ Expunge Both
 SyncState *
 Sync All
 Create Both
+
+IMAPAccount duckduckgo
+Host outlook.office365.com
+SSLType IMAPS
+SSLVersions TLSv1.2
+User dvandyke@duckduckgo.com
+PassCmd "secret-tool lookup email dvandyke@duckduckgo.com"
+
+IMAPStore duckduckgo-remote
+Account duckduckgo
+
+MaildirStore duckduckgo-local
+# The trailing "/" is important
+Path ~/Maildir/duckduckgo/
+Inbox ~/Maildir/duckduckgo/INBOX
+Flatten .
+
+Channel duckduckgo
+Master :duckduckgo-remote:
+Slave :duckduckgo-local:
+Expunge Both
+Patterns *
+SyncState *
+Sync All
+Create Both

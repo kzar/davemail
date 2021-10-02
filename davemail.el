@@ -1,7 +1,10 @@
 (define-key global-map "\C-cm" 'notmuch)
 (setq message-kill-buffer-on-exit t
       notmuch-search-oldest-first t
-      notmuch-fcc-dirs '((".*" . "\"kzar/Sent\" +sent +kzar -inbox"))
+      notmuch-fcc-dirs
+      '(("dvandyke@duckduckgo.com" .
+         "\"duckduckgo/Sent Items\" +sent +duckduckgo -inbox")
+        (".*" . "\"kzar/Sent\" +sent +kzar -inbox"))
       notmuch-crypto-process-mime nil
       notmuch-saved-searches
       '((:name "inbox" :query "tag:inbox")
@@ -83,9 +86,18 @@
          nil ;; No organization header
          nil ;; No extra headers
          nil ;; No extra body text
+         nil)
+        ("duckduckgo"
+         nil ;; Does not refer to any other identity
+         "Dave Vandyke <dvandyke@duckduckgo.com>"
+         "DuckDuckGo"
+         nil ;; No extra headers
+         nil ;; No extra body text
          nil)))
 
 (setq gnus-alias-default-identity "kzar")
+(setq gnus-alias-identity-rules
+      '(("@duckduckgo.com" ("any" "@duckduckgo\\.com" both) "duckduckgo")))
 
 ; Outgoing email (msmtp + msmtpq)
 (setq send-mail-function 'sendmail-send-it
