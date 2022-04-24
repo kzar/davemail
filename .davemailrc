@@ -16,7 +16,7 @@
 [duckduckgo]
   default_folder=Archive
   tag_new_messages=True
-  maintain_tag_folder_mapping=True
+  maintain_tag_folder_mapping=False
 
   [[tag_folder_mapping]]
     inbox=INBOX

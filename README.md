@@ -46,13 +46,12 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.config/vdirsyncer/config
 
 ## TODO
 
-- The tag to folder mapping seems to get messed up when you send an email from
-  one of your accounts to another one of your accounts. It seems that "inbox"
-  tag gets lost on the receiving end the second time mail is synced.
+- `maintain_tag_folder_mapping` does not behave well when enabled for multiple
+  accounts if an email is forwarded between the accounts. It is moved to the
+  first account's Maildir, even if the mail should exist in both Maildirs.
+  That, in turn, screws up the tags.
 - Figure out how to consider the address the original email was to when
   forwarding emails. Currently, the wrong alias is often used.
-- Figure out why forwarded messages sometimes get mangled.
-- Ditch webmail/mobile email completely?!
 - [Set up imapnotify to trigger mbsync, rather than polling.][10]
 - Sending emails using msmtp blocks Emacs, which sucks when the connection to
   Fastmail is slow.
