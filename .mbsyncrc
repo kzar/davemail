@@ -26,8 +26,8 @@ Inbox ~/Maildir/kzar/INBOX
 Flatten .
 
 Channel kzar
-Master :kzar-remote:
-Slave :kzar-local:
+Far :kzar-remote:
+Near :kzar-local:
 Patterns INBOX Travel Archive Sent Spam Trash
 Expunge Both
 SyncState *
@@ -51,8 +51,8 @@ Inbox ~/Maildir/duckduckgo/INBOX
 Flatten .
 
 Channel duckduckgo
-Master :duckduckgo-remote:
-Slave :duckduckgo-local:
+Far :duckduckgo-remote:
+Near :duckduckgo-local:
 Expunge Both
 Patterns *
 SyncState *
