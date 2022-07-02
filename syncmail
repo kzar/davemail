@@ -7,5 +7,6 @@ while [ TRUE ];do
             mbsync -a && \
             python3 postsync.py
     fi
+    echo 'Waiting...'
     read -t 120
 done
