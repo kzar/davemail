@@ -7,9 +7,9 @@
         (".*" . "\"kzar/Sent\" +sent +kzar -inbox"))
       notmuch-crypto-process-mime nil
       notmuch-saved-searches
-      '((:name "inbox" :query "tag:inbox")
-        (:name "inbox work" :query "tag:inbox AND tag:suboptimal")
-        (:name "travel" :query "tag:travel")
+      '((:name "inbox" :query "tag:inbox" :key "i")
+        (:name "inbox work" :query "tag:inbox AND tag:suboptimal" :key "w")
+        (:name "travel" :query "tag:travel" :key "t")
         ;(:name "unread" :query "tag:unread" :key "u")
         (:name "flagged" :query "tag:flagged" :key "f")
         (:name "all mail" :query "*" :key "d")))
