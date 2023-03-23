@@ -105,3 +105,8 @@
       mail-specify-envelope-from t
       message-sendmail-envelope-from 'header
       mail-envelope-from 'header)
+
+; PGP encrypted email
+(setq notmuch-crypto-mime t
+      notmuch-crypto-process-mime t
+      mml-secure-openpgp-encrypt-to-self t)
