@@ -4,8 +4,7 @@
 
 My email setup, now under source control as it is getting rather complex!
 
-0. My personal emails come into my [FastMail][1] account, work ones into
-   Outlook.
+0. My personal emails come into my [FastMail][1] account.
 1. [mbsync][2] is used to keep a local copy of my emails synchronised using
    IMAP. (Much more efficient and reliably than [offlineimap][3] once set up
    correctly. Unfortunately setting it up correctly [wasn't trivial][4]).
@@ -17,8 +16,7 @@ My email setup, now under source control as it is getting rather complex!
    I then use to update my modeline display etc.
 4. [Notmuch][6] Emacs client is then used for reading and tagging message.
    [Gnus alias][7] for handling my different email identities + signatures.
-5. Outgoing emails are sent using [msmtp][8], back out via FastMail's or
-   Outlook's servers.
+5. Outgoing emails are sent using [msmtp][8], back out via FastMail's servers.
 6. [vdirsyncer][9] synchronises my personal contacts and calendars with FastMail
    so that I have a local copy to use for address completion etc.
 
@@ -61,6 +59,7 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.config/vdirsyncer/config
   well as the notmuch database. (See `notmuch-address-command`.)
 - Use [syncmaildir][13] instead of IMAP?
 - Replace msmtp with [nullmailer][14]?
+- Figure out how to get Outlook SSO working for my work emails.
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
