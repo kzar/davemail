@@ -15,6 +15,7 @@ SSLType IMAPS
 SSLVersions TLSv1.2
 User kzar@kzar.co.uk
 PassCmd "secret-tool lookup email kzar@kzar.co.uk"
+AuthMechs PLAIN
 
 IMAPStore kzar-remote
 Account kzar
