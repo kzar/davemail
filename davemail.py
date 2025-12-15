@@ -4,7 +4,7 @@ from configobj import ConfigObj
 import re
 import email
 
-import notmuch
+import notmuch2
 
 config = ConfigObj(".davemailrc")
 for maildir in config:
@@ -13,17 +13,15 @@ for maildir in config:
     del config[maildir]["tag_folder_mapping"]["new"]
 
 def move_messages(query_string, maildir, destination_folder):
-  with notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE) as db:
-    query = db.create_query(query_string)
-
-    for message in query.search_messages():
-      old_filename = message.get_filename()
+  with notmuch2.Database(mode=notmuch2.Database.MODE.READ_WRITE) as db:
+    for message in list(db.messages(query_string)):
+      old_filename = str(message.path)
       path, filename = os.path.split(old_filename)
       cur_new = path.split(os.sep)[-1]
       # We strip the ,U=nnn infix from the filename so that mbsync isn't
       # confused when using the native storage scheme.
       # https://sourceforge.net/p/isync/mailman/message/33359742/
-      new_filename = os.path.join(db.get_path(), maildir, destination_folder,
+      new_filename = os.path.join(db.path, maildir, destination_folder,
                                   cur_new, re.sub(",U=[0-9]+", "", filename))
       # If the old file no longer exists, or the new one already does then we
       # simply skip this message for now.
@@ -33,14 +31,14 @@ def move_messages(query_string, maildir, destination_folder):
         continue
       # We add the new filename to the notmuch database before removing the old
       # one so that the notmuch tags are preserved for the message.
-      db.add_message(new_filename)
-      db.remove_message(old_filename)
+      db.add(new_filename)
+      db.remove(old_filename)
 
 def move_tagged_messages():
   for maildir in config:
     if config[maildir].as_bool("maintain_tag_folder_mapping"):
       default_folder = config[maildir]["default_folder"]
-      for tag, folder in config[maildir]["tag_folder_mapping"].iteritems():
+      for tag, folder in config[maildir]["tag_folder_mapping"].items():
         # First we move tagged messages into the folder.
         move_messages("tag:%s AND NOT folder:\"%s/%s\" AND path:%s/**" %
                       (tag, maildir, folder, maildir),
@@ -61,7 +59,7 @@ def tag_moved_and_new_messages():
     # Tag messages based on their maildir
     tag_messages("path:%s/**" % (maildir), "+" + maildir)
 
-    for tag, folder in config[maildir]["tag_folder_mapping"].iteritems():
+    for tag, folder in config[maildir]["tag_folder_mapping"].items():
       if config[maildir].as_bool("maintain_tag_folder_mapping"):
         # Tag / untag all messages if maintaining tag to folder mapping
         tag_messages("NOT folder:\"%s/%s\" AND path:%s/**" %
@@ -96,15 +94,14 @@ def header_matches(filename, header_name, regexp):
 # message header exists and matches the given regexp. *Warning slow!*
 def tag_other_header_match(query_string, header_name, regexp, tags):
   regexp = re.compile(regexp)
-  with notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE) as db:
-    query = db.create_query(query_string)
-    for message in query.search_messages():
-      if header_matches(message.get_filename(), header_name, regexp):
+  with notmuch2.Database(mode=notmuch2.Database.MODE.READ_WRITE) as db:
+    for message in db.messages(query_string):
+      if header_matches(str(message.path), header_name, regexp):
         for tag in tags.split():
           if tag[0] == "+":
-            message.add_tag(tag[1:])
+            message.tags.add(tag[1:])
           elif tag[0] == "-":
-            message.remove_tag(tag[1:])
+            message.tags.discard(tag[1:])
 
 def update_database():
   call(["notmuch", "new"])
