@@ -11,7 +11,7 @@ if __name__ == "__main__":
                         "subject:'reminder'", "+muted")
   davemail.tag_other_header_match("tag:new",
                                   "X-Original-Delivered-to",
-                                  ".*suboptimal\.co\.uk$", "+suboptimal")
+                                  r".*suboptimal\.co\.uk$", "+suboptimal")
   davemail.tag_muted_threads()
   davemail.tag_messages("tag:new", "-new")
   davemail.run_emacs_hook("notmuch-postsync-hook")

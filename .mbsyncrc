@@ -11,8 +11,8 @@ CopyArrivalDate yes
 
 IMAPAccount kzar
 Host imap.fastmail.com
-SSLType IMAPS
-SSLVersions TLSv1.2
+TLSType IMAPS
+TLSVersions +1.2 +1.3
 User kzar@kzar.co.uk
 PassCmd "secret-tool lookup email kzar@kzar.co.uk"
 AuthMechs PLAIN
