@@ -59,7 +59,6 @@ ln -s ~/path/to/davemail/.vdirsyncerrc ~/.config/vdirsyncer/config
   well as the notmuch database. (See `notmuch-address-command`.)
 - Use [syncmaildir][13] instead of IMAP?
 - Replace msmtp with [nullmailer][14]?
-- Figure out how to get Outlook SSO working for my work emails.
 
 [1]: https://fastmail.com
 [2]: http://isync.sourceforge.net/mbsync.html
